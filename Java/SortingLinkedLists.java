@@ -1,16 +1,18 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.LinkedList;
 
 public class SortingLinkedLists {
     public static void main(String[] args) {
-        LinkedList<Integer> numbers = getLinkedListOfNum();
-        LinkedList<Integer> numbers1 = getLinkedListOfNum();
-        LinkedList<Integer> numbers2 = getLinkedListOfNum();
+        //LinkedList<Integer> numbers = getLinkedListOfNum();
+        //LinkedList<Integer> numbers1 = getLinkedListOfNum();
+        //LinkedList<Integer> numbers2 = getLinkedListOfNum();
 
         //Bubble Sort Time
-        long start = System.nanoTime();
+        //long start = System.nanoTime();
+
+
+
 
         
 
@@ -24,7 +26,7 @@ public class SortingLinkedLists {
         try {
             input = new Scanner(f);
             while (input.hasNextInt()) {
-                list.add(input.nextInt());
+                list.add((Integer)input.nextInt());
             }
         } catch (FileNotFoundException ex) {
             System.out.println("File Not Found");
@@ -34,8 +36,22 @@ public class SortingLinkedLists {
     }
 
     static void printLinkedList(LinkedList<Integer> list) {
-        for (int num: list) {
-            System.out.println(num);
+        Node<Integer> head = list.head;
+        while (head != null) {
+            System.out.println(head.data);
+            head = head.next;
         }
+    }
+
+    static void swap(Node<Integer> a, Node<Integer> b) {
+        Integer temp = a.data;
+        a.data = b.data;
+        b.data = temp;
+    }
+
+    static Node<Integer> BubbleSort(Node<Integer> head) {
+
+
+        return null;
     }
 }
