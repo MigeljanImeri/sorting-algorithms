@@ -4,30 +4,42 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 public class SortingArrays {
-
     public static void main(String[] args) {
 
-        // Bubble Sort Time
         int[] numbers = getArrayOfNum();
+        int[] numbers1 = getArrayOfNum();
+        int[] numbers2 = getArrayOfNum();
+
+        // Bubble Sort Time
         long start = System.nanoTime();
         bubbleSort(numbers);
         long end = System.nanoTime();
+        System.out.println("Array is Sorted: " + isSorted(numbers));
         System.out.println("Bubble Sort Time: " + (end - start) / 1e6 + "ms");
 
         // Quick Sort Time
-        int[] numbers1 = getArrayOfNum();
         start = System.nanoTime();
         quickSort(numbers1, 0, numbers1.length - 1);
         end = System.nanoTime();
+        System.out.println("Array is Sorted: " + isSorted(numbers1));
         System.out.println("Quick Sort Time: " + (end - start) / 1e6 + "ms");
 
         // Radix Sort Time
-        int[] numbers2 = getArrayOfNum();
         start = System.nanoTime();
         radixsort(numbers2, numbers2.length);
         end = System.nanoTime();
+        System.out.println("Array is Sorted: " + isSorted(numbers2));
         System.out.println("Radix Sort Time: " + (end - start) / 1e6 + "ms");
 
+    }
+
+    static boolean isSorted(int[] array) {
+
+        for (int i = 0; i < array.length - 1; i++) {
+            if (array[i] > array[i + 1])
+                return false;
+        }
+        return true;
     }
 
     static int[] getArrayOfNum() {
@@ -42,6 +54,7 @@ public class SortingArrays {
             }
         } catch (FileNotFoundException ex) {
             System.out.println("File Not Found");
+            System.out.println(ex.getMessage());
         }
         return numbers;
     }
