@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SortingArrays",
+            "request": "launch",
+            "mainClass": "SortingArrays",
+            "projectName": "Sorting-Numbers-Java_25a46eba"
+        },
+        {
+            "type": "java",
+            "name": "Launch SortingLinkedLists",
+            "request": "launch",
+            "mainClass": "SortingLinkedLists",
+            "projectName": "Sorting-Numbers-Java_25a46eba"
+        },
+        {
+            "type": "java",
             "name": "Launch SortingLinkedLists",
             "request": "launch",
             "mainClass": "SortingLinkedLists",

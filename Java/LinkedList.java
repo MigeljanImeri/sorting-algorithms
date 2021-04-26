@@ -63,4 +63,15 @@ public class LinkedList<T> {
 
         return traversal;
     }
+
+    public LinkedList<T> clone() {
+        LinkedList<T> clone = new LinkedList<>();
+        Node<T> traversal = this.head;
+
+        while (traversal != null) {
+            clone.add(traversal.data);
+            traversal = traversal.next;
+        }
+        return clone;
+    }
 }

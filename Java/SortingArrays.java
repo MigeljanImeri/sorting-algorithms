@@ -139,19 +139,22 @@ public class SortingArrays {
         int count[] = new int[10];
         Arrays.fill(count, 0);
 
-        for (i = 0; i < n; i++)
+        for (i = 0; i < n; i++) {
             count[(arr[i] / exp) % 10]++;
+        }
 
-        for (i = 1; i < 10; i++)
+        for (i = 1; i < 10; i++) {
             count[i] += count[i - 1];
+        }
 
         for (i = n - 1; i >= 0; i--) {
             output[count[(arr[i] / exp) % 10] - 1] = arr[i];
             count[(arr[i] / exp) % 10]--;
         }
 
-        for (i = 0; i < n; i++)
+        for (i = 0; i < n; i++) {
             arr[i] = output[i];
+        }
     }
 
     static int getMax(int arr[], int n) {

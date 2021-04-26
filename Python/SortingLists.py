@@ -1,28 +1,25 @@
-import numpy as np
 import time
 
 
-def get_array():
-    array = np.arange(1000)
+def get_list():
+    list = []
     f = open("numbers.txt", "r")
-    i = 0
     for num in f:
-        array[i] = int(num)
-        i = i + 1
-    return array
+        list.append((int(num)))
+    return list
 
-
-def bubble_sort(array):
+# https://stackabuse.com/bubble-sort-in-python/
+def bubble_sort(our_list):
     has_swapped = True
 
     num_of_iterations = 0
 
     while(has_swapped):
         has_swapped = False
-        for i in range(len(array) - num_of_iterations - 1):
-            if array[i] > array[i+1]:
+        for i in range(len(our_list) - num_of_iterations - 1):
+            if our_list[i] > our_list[i+1]:
                 # Swap
-                array[i], array[i+1] = array[i+1], array[i]
+                our_list[i], our_list[i+1] = our_list[i+1], our_list[i]
                 has_swapped = True
         num_of_iterations += 1
 
@@ -80,7 +77,7 @@ def countingSort(array, place):
 
 
 # https://www.programiz.com/dsa/radix-sort
-def radix_sort(array):
+def radixSort(array):
     # Get maximum element
     max_element = max(array)
 
@@ -91,23 +88,24 @@ def radix_sort(array):
         place *= 10
 
 
-array = get_array()
+list = get_list()
 t0 = time.time_ns()
-bubble_sort(array)
+bubble_sort(list)
 t1 = time.time_ns()
 total = (t1 - t0)/1e6  # convert time from nanoseconds into microseconds
 print("Bubble Sort Time: ", total)
 
-array1 = get_array()
+list1 = get_list()
 t0 = time.time_ns()
-quick_sort(array1, 0, len(array1) - 1)
+quick_sort(list1, 0, len(list1) - 1)
 t1 = time.time_ns()
 total = (t1 - t0)/1e6  # convert time from nanoseconds into microseconds
 print("Quick Sort Time: ", total)
 
-array2 = get_array()
+list2 = get_list()
 t0 = time.time_ns()
-radix_sort(array2)
+radixSort(list2)
 t1 = time.time_ns()
 total = (t1 - t0)/1e6  # convert time from nanoseconds into microseconds
-print("Quick Sort Time: ", total)
+print("Radix Sort Time: ", total)
+

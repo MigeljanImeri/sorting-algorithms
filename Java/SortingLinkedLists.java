@@ -1,17 +1,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.LinkedList;
-import java.util.ListIterator;
 
 public class SortingLinkedLists {
     public static void main(String[] args) {
         LinkedList<Integer> numbers = getLinkedListOfNum();
-        ListIterator<Integer> listIterator = numbers.listIterator();
+
         LinkedList<Integer> numbers1 = getLinkedListOfNum();
-        ListIterator<Integer> listIterator1 = numbers1.listIterator();
+
         LinkedList<Integer> numbers2 = getLinkedListOfNum();
-        ListIterator<Integer> listIterator2 = numbers2.listIterator();
+
 
         // Bubble Sort Time
         long start = System.nanoTime();
@@ -21,7 +19,7 @@ public class SortingLinkedLists {
         System.out.println("Array is Sorted: " + isSorted(numbers));
 
         //Quick Sort Time
-        Node<Integer> startNode = numbers1.get(0);
+        Node<Integer> startNode = numbers1.head;
         Node<Integer> endNode = numbers1.lastNode();
         start = System.nanoTime();
         QuickSort(startNode,endNode);
@@ -29,23 +27,12 @@ public class SortingLinkedLists {
         System.out.println("Quick Sort Time: " + (end - start) / 1e6 + "ms");
         System.out.println("Array is Sorted: " + isSorted(numbers1));
 
-
-        LinkedList<Integer> testing = new LinkedList<Integer>();
-        testing.add(5);
-        testing.add(3);
-        testing.add(10);
-
-        printLinkedList(testing);
-        testing.set(2, 15);
-        printLinkedList(testing);
         //Radix Sort Time
         start = System.nanoTime();
-        //RadixSort(numbers2);
+        RadixSort(numbers2);
         end = System.nanoTime();
         System.out.println("Radix Sort Time: " + (end - start) / 1e6 + "ms");
-        System.out.println("Array is Sorted: " + isSorted(numbers1));
-        
-
+        System.out.println("Array is Sorted: " + isSorted(numbers2));
 
     }
 
@@ -67,23 +54,24 @@ public class SortingLinkedLists {
     }
 
     static void printLinkedList(LinkedList<Integer> list) {
-        for (int num: list) {
-            System.out.println(num);
+        Node<Integer> traversal  = list.head;
+        while (traversal != null) {
+            System.out.println(traversal.data);
+            traversal = traversal.next;
         }
     }
 
     static boolean isSorted(LinkedList<Integer> list) {
 
-        int current = list.get(0);
-        int previous = list.get(0);
-        ListIterator<Integer> listIterator = list.listIterator();
+        Node<Integer> current = list.head;
+        Node<Integer> previous = list.head;
 
-        while (listIterator.hasNext()) {
-            if (previous > current) {
+        while (current.next != null) {
+            current = current.next;
+            if (current.data < previous.data) {
                 return false;
             }
-            
-
+            previous = current;
         }
   
         return true;
@@ -236,52 +224,38 @@ public class SortingLinkedLists {
             counter++;
         } while (counter < 10);
  
-        System.out.println("list length is: " + list.length);
+        //System.out.println("list length is: " + list.length);
         // Store count of occurrences in count[]
         for (i = 0; i < list.length; i++) {
-            //count[(arr[i] / exp) % 10]++;
-            //System.out.println(i);
-            //System.out.println(list.get(i));
             int countCurrentIndex = (list.get(i) / exp) % 10;
-            //System.out.println(countCurrentIndex);
             int countCurrentIndexValue = count.get(countCurrentIndex);
-            //System.out.println("countCurrentIndexValue: " + countCurrentIndexValue++);
             count.set(countCurrentIndex, ++countCurrentIndexValue);
         }
-
+        
         //printLinkedList(count);
         // Change count[i] so that count[i] now contains
         // actual position of this digit in output[]
         for (i = 1; i < 10; i++) {
-            //count[i] += count[i - 1];
             count.set(i, count.get(i) + count.get(i - 1));
         }
-
- 
+        
         // Build the output array
         for (i = list.length - 1; i >= 0; i--) {
-            //output[count[(arr[i] / exp) % 10] - 1] = arr[i];
-            //count[(arr[i] / exp) % 10]--;
-            //System.out.println(i);
+
             int countCurrentIndex = (list.get(i) / exp) % 10;
-            //System.out.println(countCurrentIndex1);
             int countCurrentIndexValue = count.get(countCurrentIndex);
-            //System.out.println(countCurrentIndexValue1);
             int outputCurrentIndex = countCurrentIndexValue - 1;
             int listCurrentIndexValue = list.get(i);
-            System.out.println("listCurrentIndexValue " + listCurrentIndexValue);
-            System.out.println("outputCurrentIndex " + outputCurrentIndex);
             output.set(outputCurrentIndex,listCurrentIndexValue);
-            count.set(countCurrentIndex, countCurrentIndexValue--);
+            count.set(countCurrentIndex, --countCurrentIndexValue);
         }
-        printLinkedList(output);
+        //printLinkedList(output);
  
         // Copy the output array to arr[], so that arr[] now
         // contains sorted numbers according to current digit
         for (i = 0; i < list.length; i++) {
-            //arr[i] = output[i];
-            list.set(i, output.get(i));
-            //System.out.println("Setting list index: " + i + " to: " + output.get(i));
+            int temp = output.get(i);
+            list.set(i, temp);
         }
             
     }
